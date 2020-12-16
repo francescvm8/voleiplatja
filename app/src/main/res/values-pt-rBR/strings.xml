@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Árbitro de voleibol</string>
+    <string name="bt1">Criar um jogo</string>
+    <string name="bt2">Jogos anteriores</string>
+</resources>

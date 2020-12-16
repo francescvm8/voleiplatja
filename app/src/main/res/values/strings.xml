@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Volleyball Referee</string>
+    <string name="bt1">Create a game</string>
+    <string name="bt2">Previous Games </string>
+    <string name="barra" translatable="false">/</string>
+    <string name="uno" translatable="false">1</string>
+    <string name="dos" translatable="false">2</string>
+    <string name="capitan" translatable="false">Captain</string>
+</resources>

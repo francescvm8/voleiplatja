@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Àrbitre de volei</string>
+    <string name="bt1">Crea un partit</string>
+    <string name="bt2">Partits anteriors</string>
+</resources>
