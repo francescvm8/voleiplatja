@@ -13,10 +13,10 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.partit);
-        bt1 = findViewById(R.id.bt1);
+        /*bt1 = findViewById(R.id.bt1);
         bt2 = findViewById(R.id.bt2);
         bt1.setOnClickListener(this);
-        bt2.setOnClickListener(this);
+        bt2.setOnClickListener(this);*/
     }
 
     @Override

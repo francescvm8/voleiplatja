@@ -5,26 +5,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pa">
-    <Button
-        android:id="@+id/bt2"
-        android:layout_width="407dp"
-        android:layout_height="108dp"
-        android:text="@string/bt2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.706" />
-
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="407dp"
-        android:layout_height="108dp"
-        android:text="@string/bt1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".pa"/>

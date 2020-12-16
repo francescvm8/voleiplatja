@@ -3,4 +3,6 @@
     <string name="app_name">Àrbitre de volei</string>
     <string name="bt1">Crea un partit</string>
     <string name="bt2">Partits anteriors</string>
+    <string name="genero">Gènere</string>
+    <string name="btsiguiente">Comença el partit</string>
 </resources>

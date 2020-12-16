@@ -3,4 +3,6 @@
     <string name="app_name">Volleyball Referee</string>
     <string name="bt1">Create a game</string>
     <string name="bt2">"Previous Games "</string>
+    <string name="genero">Gender</string>
+    <string name="btsiguiente">Start match</string>
 </resources>

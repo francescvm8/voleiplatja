@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button bt1, bt2;
 
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Realm.init(this);
         bt1 = findViewById(R.id.bt1);
         bt2 = findViewById(R.id.bt2);
         bt1.setOnClickListener(this);
