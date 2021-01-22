@@ -7,11 +7,14 @@
     <string name="dos" translatable="false">2</string>
     <string name="capitan" translatable="false">Captain</string>
     <string name="genero">Gender</string>
-    <string-array name="generes">
-        <item>Mixte</item>
-        <item>Femeni</item>
-        <item>Masculi</item>
-    </string-array>
+    <string name="mixte" translatable="false">Mixte</string>
+    <string name="masculi" translatable="false">Masculi</string>
+    <string name="femeni" translatable="false">Femeni</string>
+    <string name="captian_required" translatable="false">The Captain is required</string>
+    <string name="genere_required" translatable="false">The Gender is required</string>
     <string name="btsiguiente">Start match</string>
     <string name="Name" translatable="false">Name</string>
+    <string name="num1" translatable="false">1</string>
+    <string name="num2" translatable="false">2</string>
+    <string name="imatge_platja" translatable="false">Imatge platja</string>
 </resources>

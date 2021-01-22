@@ -681,13 +681,30 @@
 											"height": 13,
 											"text": "+Tanteo: ResultatActual",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2avt8AKtsAw8=",
+											"_parent": {
+												"$ref": "AAAAAAF2au8vfqpSfh8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2avt7+atp8JM="
+											},
+											"font": "Arial;13;0",
+											"left": 101,
+											"top": 355,
+											"width": 171.64697265625,
+											"height": 13,
+											"text": "+Tipus_Amonestació: String",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 96,
 									"top": 305,
 									"width": 181.64697265625,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -700,7 +717,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 96,
-									"top": 358,
+									"top": 373,
 									"width": 181.64697265625,
 									"height": 10
 								},
@@ -740,7 +757,7 @@
 							"left": 96,
 							"top": 280,
 							"width": 181.64697265625,
-							"height": 88,
+							"height": 103,
 							"showProperty": false,
 							"nameCompartment": {
 								"$ref": "AAAAAAF2au8vfqpN6Rw="
@@ -869,30 +886,13 @@
 											"height": 13,
 											"text": "+TempsMort: Integer",
 											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
-											"_id": "AAAAAAF2avQYlasjb4c=",
-											"_parent": {
-												"$ref": "AAAAAAF2avB3QqqONBY="
-											},
-											"model": {
-												"$ref": "AAAAAAF2avQYjqsg6j0="
-											},
-											"font": "Arial;13;0",
-											"left": 453,
-											"top": 501,
-											"width": 119.5771484375,
-											"height": 13,
-											"text": "+Attribute1",
-											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 448,
 									"top": 481,
 									"width": 129.5771484375,
-									"height": 38
+									"height": 23
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -905,7 +905,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 448,
-									"top": 519,
+									"top": 504,
 									"width": 129.5771484375,
 									"height": 10
 								},
@@ -1326,6 +1326,15 @@
 							},
 							"name": "Tanteo",
 							"type": "ResultatActual"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2avt7+atp8JM=",
+							"_parent": {
+								"$ref": "AAAAAAF2au8vfqpKBKQ="
+							},
+							"name": "Tipus_Amonestació",
+							"type": "String"
 						}
 					]
 				},
@@ -1345,15 +1354,6 @@
 							},
 							"name": "TempsMort",
 							"type": "Integer"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAF2avQYjqsg6j0=",
-							"_parent": {
-								"$ref": "AAAAAAF2avB3QaqGoag="
-							},
-							"name": "Attribute1",
-							"type": ""
 						}
 					]
 				},

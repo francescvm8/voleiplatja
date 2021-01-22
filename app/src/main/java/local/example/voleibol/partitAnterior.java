@@ -21,6 +21,5 @@ public class partitAnterior extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
     }
 }
