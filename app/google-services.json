@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "702335094066",
+    "project_id": "voleibol-26293",
+    "storage_bucket": "voleibol-26293.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702335094066:android:8506585d3b822e7bed5b2b",
+        "android_client_info": {
+          "package_name": "local.example.voleibol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702335094066-ok6ebi1u3ica05mrvu019t6qsli377ms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5YbbqyKPGaTkqdSNSIY5e5U8v4c7B564"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702335094066-ok6ebi1u3ica05mrvu019t6qsli377ms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
