@@ -36,12 +36,10 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
     ArrayList<String> colors = new ArrayList<>();
     int numero;
     String colorA = "33ccff", colorB = "33ccff", lloc, arbitre1, arbitre2, anotador, horaInici, pista;
-    Boolean a, b, c, d;
-    Spinner spinner, spinner_capitaA, spinner_capitaB, spinner_saqueA, spinner_saqueB;
+    Spinner spinner, spinner_capitaA, spinner_capitaB, spinner_saqueA, spinner_saqueB, spinner_guanyadorSorteig;
     parellaDatabase parella1, parella2;
     partitdatabase partitdata;
     DatabaseReference dbPartit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,28 +79,35 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         Intent temp;
+        Boolean a = false, b = false, c = false, d = false;
+
+
+        //Quan han posat els noms i clica al boto del sorteig es realitza el sorteig
+        if (v.getId() == R.id.dades_bt2) {
+            sorteig(v);
+        }
 
         //Realitza els required dels noms
-        if (v.getId() == R.id.dades_bt2) {
+        if (v.getId() == R.id.dades_bt1) {
             a = name_required(entradatext1);
             b = name_required(entradatext2);
             c = name_required(entradatext3);
             d = name_required(entradatext4);
         }
 
-        //Quan han posat els noms i clica al boto del sorteig es realitza el sorteig
-        if (v.getId() == R.id.dades_bt2 && a && b && c && d) {
-            sorteig(v);
-        }
 
-        if (v.getId() == R.id.dades_bt1) {
+        //Amb el sorteig fet es creen els objectes i es pujen al firebase
+        if (v.getId() == R.id.dades_bt1 && a && b && c && d) {
             parella1 = new parellaDatabase("1", entradatext1.getText().toString(), entradatext2.getText().toString(), spinner_capitaA.getSelectedItem().toString(), colorA, spinner_saqueA.getSelectedItem().toString());
             parella2 = new parellaDatabase("2", entradatext3.getText().toString(), entradatext4.getText().toString(), spinner_capitaB.getSelectedItem().toString(), colorB, spinner_saqueB.getSelectedItem().toString());
-            partitdata = new partitdatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, pista);
+            partitdata = new partitdatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, pista, spinner_guanyadorSorteig.getSelectedItem().toString());
             String nomPartit = lloc + "/" + spinner.getSelectedItem().toString() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
             dbPartit.child(nomPartit).setValue(partitdata);
 
             temp = new Intent(this, partit.class);
+            temp.putExtra("parella1", parella1);
+            temp.putExtra("parella2", parella2);
+            temp.putExtra("partitdata", partitdata);
             startActivity(temp);
         }
     }
@@ -152,8 +157,6 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         colors.add("#ff9933");
         //blanc
         colors.add("#ffffff");
-        //negre
-        colors.add("#000000");
         //rosa
         colors.add("#ff00ff");
         //vermell
@@ -230,7 +233,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.capita, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_capitaB.setAdapter(adapter1);
+        spinner_capitaB.setAdapter(adapter2);
         spinner_capitaB.setSelection(0);
         spinner_capitaB.setOnItemSelectedListener(this);
 
@@ -238,7 +241,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this,
                 R.array.capita, android.R.layout.simple_spinner_item);
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_saqueA.setAdapter(adapter1);
+        spinner_saqueA.setAdapter(adapter4);
         spinner_saqueA.setSelection(0);
         spinner_saqueA.setOnItemSelectedListener(this);
 
@@ -246,9 +249,17 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         ArrayAdapter<CharSequence> adapter5 = ArrayAdapter.createFromResource(this,
                 R.array.capita, android.R.layout.simple_spinner_item);
         adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_saqueB.setAdapter(adapter1);
+        spinner_saqueB.setAdapter(adapter5);
         spinner_saqueB.setSelection(0);
         spinner_saqueB.setOnItemSelectedListener(this);
+
+        spinner_guanyadorSorteig = findViewById(R.id.spinner6);
+        ArrayAdapter<CharSequence> adapter6 = ArrayAdapter.createFromResource(this,
+                R.array.a_b, android.R.layout.simple_spinner_item);
+        adapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_guanyadorSorteig.setAdapter(adapter6);
+        spinner_guanyadorSorteig.setSelection(0);
+        spinner_guanyadorSorteig.setOnItemSelectedListener(this);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -286,6 +297,4 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
     public void onCancelled(@NonNull DatabaseError error) {
 
     }
-
-
 }

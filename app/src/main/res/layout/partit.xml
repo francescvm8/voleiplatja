@@ -6,24 +6,13 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btEsquerra"
+        android:id="@+id/btPuntsEsquerra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/cero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
-
-    <Button
-        android:id="@+id/Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.389" />
@@ -41,14 +30,15 @@
         app:layout_constraintVertical_bias="0.032" />
 
     <TextView
-        android:id="@+id/tv_jugador3_partit"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_jugadorB1_partit"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="#07000000"
         android:singleLine="true"
         android:text="@string/uno"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,14 +50,15 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tv_jugador4_partit"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_jugadorB2_partit"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="#07000000"
         android:singleLine="true"
         android:text="@string/dos"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,14 +83,15 @@
         app:srcCompat="@drawable/volleyball" />
 
     <TextView
-        android:id="@+id/tv_jugador1_partit"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_jugadorA1_partit"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="#07000000"
         android:singleLine="true"
         android:text="@string/uno"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,14 +103,15 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tv_jugador2_partit"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_jugadorA2_partit"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="#07000000"
         android:singleLine="true"
         android:text="@string/dos"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -169,10 +162,10 @@
         app:layout_constraintVertical_bias="0.241" />
 
     <Button
-        android:id="@+id/btDreta"
+        android:id="@+id/btPuntsDreta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/cero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
@@ -225,6 +218,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="252dp" />
+
+    <ImageButton
+        android:id="@+id/btDesfer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.390"
+        app:srcCompat="@drawable/undo_arrow_2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

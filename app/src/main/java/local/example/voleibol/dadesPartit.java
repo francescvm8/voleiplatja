@@ -18,13 +18,11 @@ import java.util.Calendar;
 public class dadesPartit extends AppCompatActivity implements View.OnClickListener {
     Button bt1;
     EditText editText1, editText2, editText3, editText4, time, editText5;
-    Boolean a, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dadespartit);
-
 
         bt1 = findViewById(R.id.dades_bt3);
         editText1 = findViewById(R.id.text11);
@@ -51,15 +49,18 @@ public class dadesPartit extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         Intent temp;
+        Boolean a = false, b = false, c = false, d = false;
         if (v.getId() == R.id.dades_bt3) {
             a = name_required(editText1);
             b = time_required(time);
+            c = courtName_required(editText4);
+            d = courtNumber_required(editText5);
         }
         String lloc = editText4.getText().toString();
         String arbitre1 = editText1.getText().toString();
         String arbitre2 = textArbitre(editText2);
         String anotador = textArbitre(editText3);
-        if (a && b) {
+        if (a && b && c && d) {
             temp = new Intent(this, dadesJugadors.class);
             temp.putExtra("arbitre1", arbitre1);
             temp.putExtra("arbitre2", arbitre2);
@@ -89,9 +90,17 @@ public class dadesPartit extends AppCompatActivity implements View.OnClickListen
     }
 
     //Espeficia que el camp de joc es necessari
-    public boolean court_required(EditText entradatext1) {
+    public boolean courtName_required(EditText entradatext1) {
         if (entradatext1.getText().toString().length() == 0) {
             entradatext1.setError("Court name is required!");
+            return false;
+        } else return true;
+    }
+
+    //Espeficia que el camp de joc es necessari
+    public boolean courtNumber_required(EditText entradatext1) {
+        if (entradatext1.getText().toString().length() == 0) {
+            entradatext1.setError("Court number is required!");
             return false;
         } else return true;
     }

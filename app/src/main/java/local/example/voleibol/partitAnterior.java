@@ -13,10 +13,10 @@ public class partitAnterior extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.anterior);
-        bt1 = findViewById(R.id.bt1);
+        /*bt1 = findViewById(R.id.bt1);
         bt2 = findViewById(R.id.bt2);
         bt1.setOnClickListener(this);
-        bt2.setOnClickListener(this);
+        bt2.setOnClickListener(this);*/
     }
 
     @Override
