@@ -23,7 +23,7 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     ImageView pilotaA1, pilotaA2, pilotaB1, pilotaB2;
     String[] numeros;
     TextView jugadorA1, jugadorA2, jugadorB1, jugadorB2;
-    int punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0, sacadorActual2;
+    int punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0, sacadorActual2 = 0;
     int canvisDeCamp = 0;
 
     @Override
@@ -67,45 +67,48 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
         } else {
             sacadorNum = 2;
         }
-        int ultimPunt = sacadorNum;
+        int equipUltimPunt = sacadorNum;
 
 
-        //no funciona be el canvi de sacadors
+        //No funciona be el canvi de sacadors
+        //Suma punts a les parelles en funcio de si estan a un costat del camp o a l'altre
         if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 0) {
             sumaPunts(btPuntsDreta, parella2);
             punts2Cache += 1;
-            canviSacador(ultimPunt);
-            ultimPunt = 2;
+            canviSacador(equipUltimPunt);
+            equipUltimPunt = 2;
 
         } else if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 0) {
             sumaPunts(btPuntsEsquerra, parella1);
             punts1Cache += 1;
-            canviSacador(ultimPunt);
-            ultimPunt = 1;
+            canviSacador(equipUltimPunt);
+            equipUltimPunt = 1;
         } else if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsDreta, parella1);
             punts1Cache += 1;
-            canviSacador(ultimPunt);
-            ultimPunt = 1;
+            canviSacador(equipUltimPunt);
+            equipUltimPunt = 1;
         } else if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsEsquerra, parella2);
             punts2Cache += 1;
-            canviSacador(ultimPunt);
-            ultimPunt = 2;
+            canviSacador(equipUltimPunt);
+            equipUltimPunt = 2;
         }
         if ((punts1Cache + punts2Cache) == 7) {
             canviDeCamp();
             canvisDeCamp += 1;
             punts1Cache = 0;
             punts2Cache = 0;
+            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
         }
         if ((punts1Cache + punts2Cache) % 7 == 0) {
             canviDeCamp();
             canvisDeCamp += 1;
             punts1Cache = 0;
             punts2Cache = 0;
+            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
         }
-        jugadorAlSaque(ultimPunt, sacadorActual1, sacadorActual2);
+        jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
     }
 
     private void sumaPunts(Button btPunts, parellaDatabase parella) {
@@ -132,19 +135,19 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     @SuppressLint("WrongConstant")
     private void jugadorAlSaqueInici(parellaDatabase parella1, parellaDatabase parella2, partitdatabase partit) {
         String guanyaSorteig = partit.getGuanyadorSorteig();
-        if (guanyaSorteig.toUpperCase().equals("A")) {
-            if (parella1.getSacador().toUpperCase().equals("1")) {
+        if (guanyaSorteig.equalsIgnoreCase("A")) {
+            if (parella1.getSacador().equalsIgnoreCase("1")) {
                 pilotaA1.setVisibility(1);
                 sacadorActual1 = 1;
-            } else if (parella1.getSacador().toUpperCase().equals("2")) {
+            } else if (parella1.getSacador().equalsIgnoreCase("2")) {
                 pilotaA2.setVisibility(1);
                 sacadorActual1 = 2;
             }
-        } else if (guanyaSorteig.toUpperCase().equals("B")) {
-            if (parella2.getSacador().toUpperCase().equals("1")) {
+        } else if (guanyaSorteig.equalsIgnoreCase("B")) {
+            if (parella2.getSacador().equalsIgnoreCase("1")) {
                 pilotaB1.setVisibility(1);
                 sacadorActual2 = 1;
-            } else if (parella2.getSacador().toUpperCase().equals("2")) {
+            } else if (parella2.getSacador().equalsIgnoreCase("2")) {
                 pilotaB2.setVisibility(1);
                 sacadorActual2 = 2;
             }
@@ -156,10 +159,12 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
         String colorParella1 = parella1.getTeamColor();
         String colorParella2 = parella2.getTeamColor();
 
-        jugadorA1.setBackgroundColor(Color.parseColor(colorParella1));
-        jugadorA2.setBackgroundColor(Color.parseColor(colorParella1));
-        jugadorB1.setBackgroundColor(Color.parseColor(colorParella2));
-        jugadorB2.setBackgroundColor(Color.parseColor(colorParella2));
+        int myColorA = Color.parseColor(colorParella1);
+        int myColorB = Color.parseColor(colorParella2);
+        jugadorA1.setBackgroundColor(myColorA);
+        jugadorA2.setBackgroundColor(myColorA);
+        jugadorB1.setBackgroundColor(myColorB);
+        jugadorB2.setBackgroundColor(myColorB);
     }
 
     //Cada cop que es crida el metode posa visible el simbol de la pilota per al jugador al saque
