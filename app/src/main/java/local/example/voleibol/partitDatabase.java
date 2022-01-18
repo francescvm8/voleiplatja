@@ -3,7 +3,7 @@ package local.example.voleibol;
 import java.io.Serializable;
 
 
-public class partitdatabase implements Serializable {
+public class partitDatabase implements Serializable {
 
     private parellaDatabase parellaDatabase1;
     private parellaDatabase parellaDatabase2;
@@ -18,10 +18,11 @@ public class partitdatabase implements Serializable {
     private String pista;
     private boolean estatPartit;
     private String guanyadorSorteig;
+    private String equipIniciSaque;
 
 
     //Constructor sencer
-    public partitdatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String set1, String set2, String set3, String horaInici, String horaFinal, String arbitre1, String arbitre2, String anotador, String pista, boolean estatPartit, String guanyadorSorteig) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String set1, String set2, String set3, String horaInici, String horaFinal, String arbitre1, String arbitre2, String anotador, String pista, boolean estatPartit, String guanyadorSorteig, String equipIniciSaque) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.set1 = set1;
@@ -35,10 +36,11 @@ public class partitdatabase implements Serializable {
         this.guanyadorSorteig = guanyadorSorteig;
         this.pista = pista;
         this.estatPartit = estatPartit;
+        this.equipIniciSaque = equipIniciSaque;
     }
 
     //Constructor partit sense inciar i 1 arbitre
-    public partitdatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String pista, String guanyadorSorteig) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String pista, String guanyadorSorteig, String equipIniciSaque) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.horaInici = horaInici;
@@ -46,10 +48,11 @@ public class partitdatabase implements Serializable {
         this.pista = pista;
         this.estatPartit = false;
         this.guanyadorSorteig = guanyadorSorteig;
+        this.equipIniciSaque = equipIniciSaque;
     }
 
     //Constructor partit sense inciar i 3 arbitres
-    public partitdatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String arbitre2, String anotador, String pista, String guanyadorSorteig) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String arbitre2, String anotador, String pista, String guanyadorSorteig, String equipIniciSaque) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.horaInici = horaInici;
@@ -59,10 +62,11 @@ public class partitdatabase implements Serializable {
         this.guanyadorSorteig = guanyadorSorteig;
         this.pista = pista;
         this.estatPartit = false;
+        this.equipIniciSaque = equipIniciSaque;
     }
 
     //Constructor sense dades
-    public partitdatabase() {
+    public partitDatabase() {
     }
 
     public boolean isEstatPartit() {
@@ -175,6 +179,14 @@ public class partitdatabase implements Serializable {
 
     public void setGuanyadorSorteig(String guanyadorSorteig) {
         this.guanyadorSorteig = guanyadorSorteig;
+    }
+
+    public String getEquipIniciSaque() {
+        return equipIniciSaque;
+    }
+
+    public void setEquipIniciSaque(String equipIniciSaque) {
+        this.equipIniciSaque = equipIniciSaque;
     }
 }
 

@@ -36,9 +36,9 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
     ArrayList<String> colors = new ArrayList<>();
     int numero;
     String colorA = "33ccff", colorB = "33ccff", lloc, arbitre1, arbitre2, anotador, horaInici, pista;
-    Spinner spinner, spinner_capitaA, spinner_capitaB, spinner_saqueA, spinner_saqueB, spinner_guanyadorSorteig;
+    Spinner spinner, spinner_capitaA, spinner_capitaB, spinner_saqueA, spinner_saqueB, spinner_guanyadorSorteig, spinner_saqueIniciEquip;
     parellaDatabase parella1, parella2;
-    partitdatabase partitdata;
+    partitDatabase partitdata;
     DatabaseReference dbPartit;
 
     @Override
@@ -65,6 +65,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         entradatext3 = findViewById(R.id.entradatext3);
         entradatext4 = findViewById(R.id.entradatext4);
         spinner = findViewById(R.id.spinner1);
+        spinner_saqueIniciEquip = findViewById(R.id.spinner7);
         tv5 = findViewById(R.id.tv5);
         tv6 = findViewById(R.id.tv6);
         tv7 = findViewById(R.id.tv7);
@@ -100,7 +101,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         if (v.getId() == R.id.dades_bt1 && a && b && c && d) {
             parella1 = new parellaDatabase("1", entradatext1.getText().toString(), entradatext2.getText().toString(), spinner_capitaA.getSelectedItem().toString(), colorA, spinner_saqueA.getSelectedItem().toString());
             parella2 = new parellaDatabase("2", entradatext3.getText().toString(), entradatext4.getText().toString(), spinner_capitaB.getSelectedItem().toString(), colorB, spinner_saqueB.getSelectedItem().toString());
-            partitdata = new partitdatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, pista, spinner_guanyadorSorteig.getSelectedItem().toString());
+            partitdata = new partitDatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, pista, spinner_guanyadorSorteig.getSelectedItem().toString(), spinner_saqueIniciEquip.getSelectedItem().toString());
             String nomPartit = lloc + "/" + spinner.getSelectedItem().toString() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
             dbPartit.child(nomPartit).setValue(partitdata);
 
@@ -260,6 +261,14 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         spinner_guanyadorSorteig.setAdapter(adapter6);
         spinner_guanyadorSorteig.setSelection(0);
         spinner_guanyadorSorteig.setOnItemSelectedListener(this);
+
+        spinner_saqueIniciEquip = findViewById(R.id.spinner7);
+        ArrayAdapter<CharSequence> adapter7 = ArrayAdapter.createFromResource(this,
+                R.array.a_b, android.R.layout.simple_spinner_item);
+        adapter7.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_saqueIniciEquip.setAdapter(adapter7);
+        spinner_saqueIniciEquip.setSelection(0);
+        spinner_saqueIniciEquip.setOnItemSelectedListener(this);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
