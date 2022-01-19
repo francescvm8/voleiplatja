@@ -23,7 +23,7 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     ImageView pilotaA1, pilotaA2, pilotaB1, pilotaB2;
     String[] numeros;
     TextView jugadorA1, jugadorA2, jugadorB1, jugadorB2;
-    int punts1 = 0, punts2 = 0, punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0, sacadorActual2 = 0;
+    int equipUltimPunt = 0, punts1 = 0, punts2 = 0, punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0, sacadorActual2 = 0;
     int canvisDeCamp = 0;
 
     @Override
@@ -56,75 +56,76 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
 
         jugadorAlSaqueInici(parella1, parella2, partit);
         colorSamarreta(parella1, parella2);
+
+        String sacador = partit.getEquipIniciSaque();
+        if (sacador.equalsIgnoreCase("A")) {
+            equipUltimPunt = 1;
+        } else {
+            equipUltimPunt = 2;
+        }
     }
 
     @Override
     public void onClick(View v) {
-        //Sacasor al inici esta malament perque un equip pot decidir rebre
-        int sacadorNum;
-        String sacador = partit.getEquipIniciSaque();
-        if (sacador.equalsIgnoreCase("A")) {
-            sacadorNum = 1;
-        } else {
-            sacadorNum = 2;
-        }
-        int equipUltimPunt = sacadorNum;
-
-
-        //No funciona be el canvi de sacadors
+        //No funciona be el canvi de l'icona dels sacadors
         //Suma punts a les parelles en funcio de si estan a un costat del camp o a l'altre
+
+        if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 0) {
+            sumaPunts(btPuntsEsquerra, punts1);
+            punts1Cache += 1;
+            punts1 += 1;
+            if (equipUltimPunt == 2) {
+                sacadorActual1 = canviSacador(sacadorActual1);
+            }
+            equipUltimPunt = 1;
+        }
+
         if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 0) {
             sumaPunts(btPuntsDreta, punts2);
             punts2Cache += 1;
             punts2 += 1;
-            canviSacador(equipUltimPunt);
+            if (equipUltimPunt == 1) {
+                sacadorActual2 = canviSacador(sacadorActual2);
+            }
             equipUltimPunt = 2;
-
-        } else if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 0) {
-            sumaPunts(btPuntsEsquerra, punts1);
-            punts1Cache += 1;
-            punts1 += 1;
-            canviSacador(equipUltimPunt);
-            equipUltimPunt = 1;
         }
+
         //Aquests dos if son per quan han canviat de camp
-        else if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 1) {
+        if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsDreta, punts1);
             punts1Cache += 1;
             punts1 += 1;
-            canviSacador(equipUltimPunt);
+            if (equipUltimPunt == 2) {
+                sacadorActual1 = canviSacador(sacadorActual1);
+            }
             equipUltimPunt = 1;
-        } else if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 1) {
+        }
+
+        if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsEsquerra, punts2);
             punts2Cache += 1;
             punts2 += 1;
-            canviSacador(equipUltimPunt);
+            if (equipUltimPunt == 1) {
+                sacadorActual2 = canviSacador(sacadorActual2);
+            }
             equipUltimPunt = 2;
         }
-        if ((punts1Cache + punts2Cache) == 7) {
+
+        if ((punts1Cache + punts2Cache) % 7 == 0) {
             canviDeCamp();
             canvisDeCamp += 1;
             punts1Cache = 0;
             punts2Cache = 0;
-            if (canvisDeCamp % 2 == 0) {
-                jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
+        }
+        //El icono de jugador al saque encara no funciona be, el numero del jugador si
+        if (canvisDeCamp % 2 == 0) {
+            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
+        } else if (canvisDeCamp % 2 == 1) {
+            equipUltimPunt += 1;
+            if (equipUltimPunt > 2) {
+                equipUltimPunt = 1;
             }
-            if (canvisDeCamp % 2 == 1) {
-                jugadorAlSaque(equipUltimPunt, sacadorActual2, sacadorActual1);
-            }
-//            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
-        } else if ((punts1Cache + punts2Cache) % 7 == 0) {
-            canviDeCamp();
-            canvisDeCamp += 1;
-            punts1Cache = 0;
-            punts2Cache = 0;
-            if (canvisDeCamp % 2 == 0) {
-                jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
-            }
-            if (canvisDeCamp % 2 == 1) {
-                jugadorAlSaque(equipUltimPunt, sacadorActual2, sacadorActual1);
-            }
-//            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
+            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
         }
     }
 
@@ -133,23 +134,19 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     }
 
     //Si l'ultim punt es de l'altre equip canvi de sacador
-    private void canviSacador(int ultimPunt) {
-        if (ultimPunt == 1) {
-            sacadorActual2 += 1;
-        } else if (ultimPunt == 2) {
-            sacadorActual1 += 1;
+    private int canviSacador(int sacadorActual) {
+        sacadorActual += 1;
+        if (sacadorActual > 2) {
+            sacadorActual = 1;
         }
-        if (sacadorActual2 > 2) {
-            sacadorActual2 = 1;
-        } else if (sacadorActual1 > 2) {
-            sacadorActual1 = 1;
-        }
+        return sacadorActual;
     }
 
 
     //Carrega el jugador inicial al saque al principi del partit
     @SuppressLint("WrongConstant")
-    private void jugadorAlSaqueInici(parellaDatabase parella1, parellaDatabase parella2, partitDatabase partit) {
+    private void jugadorAlSaqueInici(parellaDatabase parella1, parellaDatabase
+            parella2, partitDatabase partit) {
         String equipIniciSaque = partit.getEquipIniciSaque();
         if (equipIniciSaque.equalsIgnoreCase("A")) {
             if (parella1.getSacador().equalsIgnoreCase("1")) {

@@ -168,7 +168,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
                 final ColorPicker colorPicker = new ColorPicker(dadesJugadors.this);
 
                 colorPicker
-                        .setDefaultColorButton(Color.parseColor("#f84c44"))
+                        .setDefaultColorButton(Color.parseColor("#33ccff"))
                         .setColors(colors)
                         .setColumns(5)
                         .setRoundColorButton(true)
@@ -192,7 +192,7 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
                 final ColorPicker colorPicker = new ColorPicker(dadesJugadors.this);
 
                 colorPicker
-                        .setDefaultColorButton(Color.parseColor("#f84c44"))
+                        .setDefaultColorButton(Color.parseColor("#33ccff"))
                         .setColors(colors)
                         .setColumns(5)
                         .setRoundColorButton(true)

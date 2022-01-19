@@ -12,7 +12,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 public class dadesPartit extends AppCompatActivity implements View.OnClickListener {
