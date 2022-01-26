@@ -71,7 +71,6 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         //No funciona be el canvi de l'icona dels sacadors
         //Suma punts a les parelles en funcio de si estan a un costat del camp o a l'altre
-
         if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 0) {
             sumaPunts(btPuntsEsquerra, punts1);
             punts1Cache += 1;
@@ -81,7 +80,6 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
             }
             equipUltimPunt = 1;
         }
-
         if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 0) {
             sumaPunts(btPuntsDreta, punts2);
             punts2Cache += 1;
@@ -91,35 +89,36 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
             }
             equipUltimPunt = 2;
         }
-
         //Aquest if es per quan han canviat de camp
         if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsDreta, punts1);
             punts1Cache += 1;
             punts1 += 1;
             if (equipUltimPunt == 1) {
-                sacadorActual1 = canviSacador(sacadorActual1);
+                sacadorActual2 = canviSacador(sacadorActual2);
             }
             equipUltimPunt = 1;
         }
-
         //Aquest if es per quan han canviat de camp
         if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsEsquerra, punts2);
             punts2Cache += 1;
             punts2 += 1;
             if (equipUltimPunt == 2) {
-                sacadorActual2 = canviSacador(sacadorActual2);
+                sacadorActual1 = canviSacador(sacadorActual1);
             }
             equipUltimPunt = 2;
         }
-
         if ((punts1Cache + punts2Cache) % 7 == 0) {
             canviDeCamp();
             canvisDeCamp += 1;
             punts1Cache = 0;
             punts2Cache = 0;
+            int sacadorTemp = sacadorActual2;
+            sacadorActual2 = sacadorActual1;
+            sacadorActual1 = sacadorTemp;
         }
+
         //El icono de jugador al saque encara no funciona be, el numero del jugador si
         if (canvisDeCamp % 2 == 0) jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
 
@@ -130,13 +129,12 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
                 equipUltimPunt = 1;
             }
             //En el cas de 7-0 pel a l'equip A posa el sacadorActual2 correctament
-            if (punts2Cache == 0 & canvisDeCamp == 1 & punts1+punts2==7) {
+            if (punts2 == 0 & canvisDeCamp == 1 & punts1 + punts2 == 7) {
                 sacadorActual2 += 1;
             }
             jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
         }
     }
-
 
     private void sumaPunts(Button btPunts, int punts) {
         btPunts.setText(numeros[punts + 1]);
@@ -166,7 +164,6 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
             sacadorActual2 = 2;
         }
     }
-
 
     //Carrega els colors de samarreta de cada equip en el background color del textView de cada jugador
     private void colorSamarreta(parellaDatabase parella1, parellaDatabase parella2) {
@@ -219,13 +216,9 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
         sumaPunts(btPuntsDreta, puntsDreta);
 
         if (canvisDeCamp % 2 == 0) {
-            colorSamarreta(parella1, parella2);
+            colorSamarreta(parella2, parella1);
         } else if (canvisDeCamp % 2 == 1) {
-            colorSamarreta(parella2, parella1);
-        }
-        //Sense aquest if mai fa el primer canvi de camp als 7 punts
-        if (canvisDeCamp == 0) {
-            colorSamarreta(parella2, parella1);
+            colorSamarreta(parella1, parella2);
         }
         Toast.makeText(this, this.getString(R.string.canviDeCamp), Toast.LENGTH_SHORT).show();
     }
