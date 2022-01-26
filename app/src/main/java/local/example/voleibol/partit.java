@@ -54,15 +54,17 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
         btPuntsEsquerra.setOnClickListener(this);
         btDesfer.setOnClickListener(this);
 
-        jugadorAlSaqueInici(parella1, parella2, partit);
+        jugadorAlSaqueInici(parella1, parella2);
         colorSamarreta(parella1, parella2);
-
         String sacador = partit.getEquipIniciSaque();
         if (sacador.equalsIgnoreCase("A")) {
             equipUltimPunt = 1;
         } else {
             equipUltimPunt = 2;
         }
+        jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
+        if (equipUltimPunt == 1) sacadorActual2 -= 1;
+        if (equipUltimPunt == 2) sacadorActual1 -= 1;
     }
 
     @Override
@@ -90,22 +92,23 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
             equipUltimPunt = 2;
         }
 
-        //Aquests dos if son per quan han canviat de camp
+        //Aquest if es per quan han canviat de camp
         if (v.getId() == R.id.btPuntsDreta && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsDreta, punts1);
             punts1Cache += 1;
             punts1 += 1;
-            if (equipUltimPunt == 2) {
+            if (equipUltimPunt == 1) {
                 sacadorActual1 = canviSacador(sacadorActual1);
             }
             equipUltimPunt = 1;
         }
 
+        //Aquest if es per quan han canviat de camp
         if (v.getId() == R.id.btPuntsEsquerra && canvisDeCamp % 2 == 1) {
             sumaPunts(btPuntsEsquerra, punts2);
             punts2Cache += 1;
             punts2 += 1;
-            if (equipUltimPunt == 1) {
+            if (equipUltimPunt == 2) {
                 sacadorActual2 = canviSacador(sacadorActual2);
             }
             equipUltimPunt = 2;
@@ -118,16 +121,22 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
             punts2Cache = 0;
         }
         //El icono de jugador al saque encara no funciona be, el numero del jugador si
-        if (canvisDeCamp % 2 == 0) {
-            jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
-        } else if (canvisDeCamp % 2 == 1) {
+        if (canvisDeCamp % 2 == 0) jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
+
+        //Invertim l'ordre del equipUltimPunt ja que han canviat el camp
+        if (canvisDeCamp % 2 == 1) {
             equipUltimPunt += 1;
             if (equipUltimPunt > 2) {
                 equipUltimPunt = 1;
             }
+            //En el cas de 7-0 pel a l'equip A posa el sacadorActual2 correctament
+            if (punts2Cache == 0 & canvisDeCamp == 1 & punts1+punts2==7) {
+                sacadorActual2 += 1;
+            }
             jugadorAlSaque(equipUltimPunt, sacadorActual1, sacadorActual2);
         }
     }
+
 
     private void sumaPunts(Button btPunts, int punts) {
         btPunts.setText(numeros[punts + 1]);
@@ -145,27 +154,19 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
 
     //Carrega el jugador inicial al saque al principi del partit
     @SuppressLint("WrongConstant")
-    private void jugadorAlSaqueInici(parellaDatabase parella1, parellaDatabase
-            parella2, partitDatabase partit) {
-        String equipIniciSaque = partit.getEquipIniciSaque();
-        if (equipIniciSaque.equalsIgnoreCase("A")) {
-            if (parella1.getSacador().equalsIgnoreCase("1")) {
-                pilotaA1.setVisibility(1);
-                sacadorActual1 = 1;
-            } else if (parella1.getSacador().equalsIgnoreCase("2")) {
-                pilotaA2.setVisibility(1);
-                sacadorActual1 = 2;
-            }
-        } else if (equipIniciSaque.equalsIgnoreCase("B")) {
-            if (parella2.getSacador().equalsIgnoreCase("1")) {
-                pilotaB1.setVisibility(1);
-                sacadorActual2 = 1;
-            } else if (parella2.getSacador().equalsIgnoreCase("2")) {
-                pilotaB2.setVisibility(1);
-                sacadorActual2 = 2;
-            }
+    private void jugadorAlSaqueInici(parellaDatabase parella1, parellaDatabase parella2) {
+        if (parella1.getSacador().equalsIgnoreCase("1")) {
+            sacadorActual1 = 1;
+        } else if (parella1.getSacador().equalsIgnoreCase("2")) {
+            sacadorActual1 = 2;
+        }
+        if (parella2.getSacador().equalsIgnoreCase("1")) {
+            sacadorActual2 = 1;
+        } else if (parella2.getSacador().equalsIgnoreCase("2")) {
+            sacadorActual2 = 2;
         }
     }
+
 
     //Carrega els colors de samarreta de cada equip en el background color del textView de cada jugador
     private void colorSamarreta(parellaDatabase parella1, parellaDatabase parella2) {
@@ -228,5 +229,4 @@ public class partit extends AppCompatActivity implements View.OnClickListener {
         }
         Toast.makeText(this, this.getString(R.string.canviDeCamp), Toast.LENGTH_SHORT).show();
     }
-
 }
