@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
@@ -82,12 +84,10 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
         Intent temp;
         Boolean a = false, b = false, c = false, d = false;
 
-
         //Quan han posat els noms i clica al boto del sorteig es realitza el sorteig
         if (v.getId() == R.id.dades_bt2) {
             sorteig(v);
         }
-
         //Realitza els required dels noms
         if (v.getId() == R.id.dades_bt1) {
             a = name_required(entradatext1);
@@ -96,19 +96,18 @@ public class dadesJugadors extends AppCompatActivity implements View.OnClickList
             d = name_required(entradatext4);
         }
 
-
         //Amb el sorteig fet es creen els objectes i es pujen al firebase
         if (v.getId() == R.id.dades_bt1 && a && b && c && d) {
             parella1 = new parellaDatabase("1", entradatext1.getText().toString(), entradatext2.getText().toString(), spinner_capitaA.getSelectedItem().toString(), colorA, spinner_saqueA.getSelectedItem().toString());
             parella2 = new parellaDatabase("2", entradatext3.getText().toString(), entradatext4.getText().toString(), spinner_capitaB.getSelectedItem().toString(), colorB, spinner_saqueB.getSelectedItem().toString());
-            partitdata = new partitDatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, pista, spinner_guanyadorSorteig.getSelectedItem().toString(), spinner_saqueIniciEquip.getSelectedItem().toString());
+            partitdata = new partitDatabase(parella1, parella2, horaInici, arbitre1, arbitre2, anotador, lloc, pista, spinner_guanyadorSorteig.getSelectedItem().toString(), spinner_saqueIniciEquip.getSelectedItem().toString(), spinner.getSelectedItem().toString());
             String nomPartit = lloc + "/" + spinner.getSelectedItem().toString() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
             dbPartit.child(nomPartit).setValue(partitdata);
 
             temp = new Intent(this, partit.class);
             temp.putExtra("parella1", parella1);
             temp.putExtra("parella2", parella2);
-            temp.putExtra("partitdata", partitdata);
+            temp.putExtra("partitData", partitdata);
             startActivity(temp);
         }
     }

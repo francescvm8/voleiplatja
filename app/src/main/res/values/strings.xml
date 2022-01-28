@@ -119,5 +119,6 @@
         <item>40</item>
     </string-array>
     <string name="saque" translatable="false">Saque</string>
+    <string name="finalDeSet" translatable="false">Final de set</string>
 
 </resources>

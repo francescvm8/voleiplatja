@@ -11,7 +11,9 @@ public class parellaDatabase implements Serializable {
     private String capita;
     private String teamColor;
     private String sacador;
-    private int punts;
+    private int puntsSet1;
+    private int puntsSet2;
+    private int puntsSet3;
 
     //Constructor sencer
     public parellaDatabase(String codiParella, String cognom1, String cognom2, String capita, String teamColor, String sacador) {
@@ -34,12 +36,12 @@ public class parellaDatabase implements Serializable {
     public parellaDatabase() {
     }
 
-    public int getPunts() {
-        return punts;
+    public int getPuntsSet1() {
+        return puntsSet1;
     }
 
-    public void setPunts(int punts) {
-        this.punts = punts;
+    public void setPuntsSet1(int puntsSet1) {
+        this.puntsSet1 = puntsSet1;
     }
 
     public String getSacador() {
@@ -84,6 +86,22 @@ public class parellaDatabase implements Serializable {
 
     public void setCognom2(String cognom2) {
         this.cognom2 = cognom2;
+    }
+
+    public int getPuntsSet2() {
+        return puntsSet2;
+    }
+
+    public void setPuntsSet2(int puntsSet2) {
+        this.puntsSet2 = puntsSet2;
+    }
+
+    public int getPuntsSet3() {
+        return puntsSet3;
+    }
+
+    public void setPuntsSet3(int puntsSet3) {
+        this.puntsSet3 = puntsSet3;
     }
 }
 

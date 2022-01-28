@@ -15,14 +15,16 @@ public class partitDatabase implements Serializable {
     private String arbitre1;
     private String arbitre2;
     private String anotador;
+    private String lloc;
     private String pista;
     private boolean estatPartit;
     private String guanyadorSorteig;
     private String equipIniciSaque;
+    private String sexeCategoria;
 
 
     //Constructor sencer
-    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String set1, String set2, String set3, String horaInici, String horaFinal, String arbitre1, String arbitre2, String anotador, String pista, boolean estatPartit, String guanyadorSorteig, String equipIniciSaque) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String set1, String set2, String set3, String horaInici, String horaFinal, String arbitre1, String arbitre2, String anotador, String lloc, String pista, boolean estatPartit, String guanyadorSorteig, String equipIniciSaque, String sexeCategoria) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.set1 = set1;
@@ -34,25 +36,29 @@ public class partitDatabase implements Serializable {
         this.arbitre2 = arbitre2;
         this.anotador = anotador;
         this.guanyadorSorteig = guanyadorSorteig;
+        this.lloc = lloc;
         this.pista = pista;
         this.estatPartit = estatPartit;
         this.equipIniciSaque = equipIniciSaque;
+        this.sexeCategoria = sexeCategoria;
     }
 
     //Constructor partit sense inciar i 1 arbitre
-    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String pista, String guanyadorSorteig, String equipIniciSaque) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String lloc, String pista, String guanyadorSorteig, String equipIniciSaque, String sexeCategoria) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.horaInici = horaInici;
         this.arbitre1 = arbitre1;
+        this.lloc = lloc;
         this.pista = pista;
         this.estatPartit = false;
         this.guanyadorSorteig = guanyadorSorteig;
         this.equipIniciSaque = equipIniciSaque;
+        this.sexeCategoria = sexeCategoria;
     }
 
     //Constructor partit sense inciar i 3 arbitres
-    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String arbitre2, String anotador, String pista, String guanyadorSorteig, String equipIniciSaque) {
+    public partitDatabase(parellaDatabase parellaDatabase1, parellaDatabase parellaDatabase2, String horaInici, String arbitre1, String arbitre2, String anotador, String lloc, String pista, String guanyadorSorteig, String equipIniciSaque, String sexeCategoria) {
         this.parellaDatabase1 = parellaDatabase1;
         this.parellaDatabase2 = parellaDatabase2;
         this.horaInici = horaInici;
@@ -60,9 +66,11 @@ public class partitDatabase implements Serializable {
         this.arbitre2 = arbitre2;
         this.anotador = anotador;
         this.guanyadorSorteig = guanyadorSorteig;
+        this.lloc = lloc;
         this.pista = pista;
         this.estatPartit = false;
         this.equipIniciSaque = equipIniciSaque;
+        this.sexeCategoria = sexeCategoria;
     }
 
     //Constructor sense dades
@@ -187,6 +195,22 @@ public class partitDatabase implements Serializable {
 
     public void setEquipIniciSaque(String equipIniciSaque) {
         this.equipIniciSaque = equipIniciSaque;
+    }
+
+    public String getLloc() {
+        return lloc;
+    }
+
+    public void setLloc(String lloc) {
+        this.lloc = lloc;
+    }
+
+    public String getSexeCategoria() {
+        return sexeCategoria;
+    }
+
+    public void setSexeCategoria(String sexeCategoria) {
+        this.sexeCategoria = sexeCategoria;
     }
 }
 
