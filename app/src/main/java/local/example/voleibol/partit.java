@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 
 public class partit extends AppCompatActivity implements View.OnClickListener, ValueEventListener, ChildEventListener {
     Button btPuntsDreta, btPuntsEsquerra;
@@ -35,6 +37,8 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
     TextView jugadorA1, jugadorA2, jugadorB1, jugadorB2;
     int equipUltimPunt = 0, punts1 = 0, punts2 = 0, punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0,
             sacadorActual2 = 0, parella1setsGuanyats = 0, parella2setsGuanyats = 0, canvisDeCamp = 0, setActual = 1;
+    String nomPartit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +46,16 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
         setContentView(R.layout.partit);
         Resources res = getResources();
 
-        dbPartit = FirebaseDatabase.getInstance().getReference().child("partit");
-        dbPartit.addChildEventListener(this);
-        dbPartit.addValueEventListener(this);
-
         //obtenim els objectes parella1, parella2 i les dades del partit
         parella1 = (parellaDatabase) getIntent().getSerializableExtra("parella1");
         parella2 = (parellaDatabase) getIntent().getSerializableExtra("parella2");
         partit = (partitDatabase) getIntent().getSerializableExtra("partitData");
-        dbPartit = (DatabaseReference) getIntent().getSerializableExtra("dbPartit");
+
+        String nomPartit = partit.getLloc() + "/" + partit.getSexeCategoria() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
+
+        dbPartit = FirebaseDatabase.getInstance().getReference().child("partit" + "/" + nomPartit);
+        dbPartit.addChildEventListener(this);
+        dbPartit.addValueEventListener(this);
 
         btPuntsDreta = findViewById(R.id.btPuntsDreta);
         btPuntsEsquerra = findViewById(R.id.btPuntsEsquerra);
@@ -296,8 +301,10 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
             parella2.setPuntsSet3(punts2);
         }
         //Aixo peta
-        String nomPartit = partit.getLloc() + "/" + partit.getSexeCategoria() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
-        dbPartit.child(nomPartit).setValue(partit);
+
+        //Android studio hem suggereix un cast de partit (Map<String, Object>) pero peta igual
+        //No se com puc actualitzar el partit amb el resultat dels sets
+        dbPartit.child(nomPartit).updateChildren(partit);
     }
 
     @Override
