@@ -23,22 +23,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
-
 
 public class partit extends AppCompatActivity implements View.OnClickListener, ValueEventListener, ChildEventListener {
     Button btPuntsDreta, btPuntsEsquerra;
     ImageButton btDesfer;
     parellaDatabase parella1, parella2;
     partitDatabase partit;
-    DatabaseReference dbPartit;
+    DatabaseReference dbPartit, dbPartit2;
     ImageView pilotaA1, pilotaA2, pilotaB1, pilotaB2;
     String[] numeros;
     TextView jugadorA1, jugadorA2, jugadorB1, jugadorB2;
     int equipUltimPunt = 0, punts1 = 0, punts2 = 0, punts1Cache = 0, punts2Cache = 0, sacadorActual1 = 0,
             sacadorActual2 = 0, parella1setsGuanyats = 0, parella2setsGuanyats = 0, canvisDeCamp = 0, setActual = 1;
-    String nomPartit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +47,15 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
         parella2 = (parellaDatabase) getIntent().getSerializableExtra("parella2");
         partit = (partitDatabase) getIntent().getSerializableExtra("partitData");
 
-        String nomPartit = partit.getLloc() + "/" + partit.getSexeCategoria() + "/" + parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
+        String nomParella = parella1.getCognom1() + " " + parella1.getCognom2() + " - " + parella2.getCognom1() + " " + parella2.getCognom2();
 
-        dbPartit = FirebaseDatabase.getInstance().getReference().child("partit" + "/" + nomPartit);
+        dbPartit = FirebaseDatabase.getInstance().getReference().child("partit").child(partit.getLloc()).child(partit.getSexeCategoria()).child(nomParella);
         dbPartit.addChildEventListener(this);
         dbPartit.addValueEventListener(this);
+
+        dbPartit2 = FirebaseDatabase.getInstance().getReference().child("partit").child(partit.getLloc()).child(partit.getSexeCategoria()).child(nomParella);
+        dbPartit2.addChildEventListener(this);
+        dbPartit2.addValueEventListener(this);
 
         btPuntsDreta = findViewById(R.id.btPuntsDreta);
         btPuntsEsquerra = findViewById(R.id.btPuntsEsquerra);
@@ -290,27 +290,73 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
 
     //Puja els punts a la base de dades en funcio del set en el que estan
     private void setPuntsDatabase() {
-        if (setActual == 1) {
-            parella1.setPuntsSet1(punts1);
-            parella2.setPuntsSet1(punts2);
-        } else if (setActual == 2) {
-            parella1.setPuntsSet2(punts1);
-            parella2.setPuntsSet2(punts2);
-        } else if (setActual == 3) {
-            parella1.setPuntsSet3(punts1);
-            parella2.setPuntsSet3(punts2);
-        }
-        //Aixo peta
+        dbPartit.orderByChild("parelladatabase1").equalTo("parelladatabase1").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                        String key = datas.getKey();
+                        //String name=datas.child("name").getValue().toString();
+                        //String priorities=datas.child("priority").getValue().toString();
+                        dbPartit.child(key).child("codiParella").setValue(parella1.getCodiParella());
+                        dbPartit.child(key).child("cognom1").setValue(parella1.getCognom1());
+                        dbPartit.child(key).child("cognom2").setValue(parella1.getCognom2());
+                        dbPartit.child(key).child("capita").setValue(parella1.getCapita());
+                        dbPartit.child(key).child("teamColor").setValue(parella1.getTeamColor());
+                        dbPartit.child(key).child("sacador").setValue(parella1.getSacador());
+                        if (setActual == 1) {
+                            dbPartit.child(key).child("puntsSet1").setValue(punts1);
+                        }
+                        if (setActual == 2) {
+                            dbPartit.child(key).child("puntsSet2").setValue(punts1);
+                        }
+                        if (setActual == 3) {
+                            dbPartit.child(key).child("puntsSet3").setValue(punts1);
+                        }
+                    }
+                }
+            }
 
-        //Android studio hem suggereix un cast de partit (Map<String, Object>) pero peta igual
-        //No se com puc actualitzar el partit amb el resultat dels sets
-        dbPartit.child(nomPartit).updateChildren(partit);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        dbPartit.orderByChild("parelladatabase2").equalTo("parelladatabase2").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                        String key = datas.getKey();
+                        //String name=datas.child("name").getValue().toString();
+                        //String priorities=datas.child("priority").getValue().toString();
+                        dbPartit.child(key).child("codiParella").setValue(parella2.getCodiParella());
+                        dbPartit.child(key).child("cognom1").setValue(parella2.getCognom1());
+                        dbPartit.child(key).child("cognom2").setValue(parella2.getCognom2());
+                        dbPartit.child(key).child("capita").setValue(parella2.getCapita());
+                        dbPartit.child(key).child("teamColor").setValue(parella2.getTeamColor());
+                        dbPartit.child(key).child("sacador").setValue(parella2.getSacador());
+                        if (setActual == 1) {
+                            dbPartit.child(key).child("puntsSet1").setValue(punts2);
+                        }
+                        if (setActual == 2) {
+                            dbPartit.child(key).child("puntsSet2").setValue(punts2);
+                        }
+                        if (setActual == 3) {
+                            dbPartit.child(key).child("puntsSet3").setValue(punts2);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+
+
+        });
     }
 
-    @Override
-    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-    }
 
     @Override
     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -329,6 +375,11 @@ public class partit extends AppCompatActivity implements View.OnClickListener, V
 
     @Override
     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
     }
 
